@@ -4,10 +4,13 @@ import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
+import mongoose from 'mongoose';
+
 import rateLimit from './middleware/rateLimit';
 import errorHandler from './middleware/errorHandler';
+
 import userRoutes from './routes/userRoutes';
-import mongoose from 'mongoose';
+import loginRoutes from './routes/loginRoute';
 
 dotenv.config();
 
@@ -28,6 +31,8 @@ mongoose.connect(process.env.MONGO_URI!)
   });
 
 app.use('/api', userRoutes);
+app.use('/api', loginRoutes);
+
 app.get('/', (req, res) => {
   res.send('Welcome to ABC Labs!');
 });
